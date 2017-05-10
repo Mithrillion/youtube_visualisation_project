@@ -73,8 +73,8 @@
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
             <a href="#cluster" class="mdl-layout__tab is-active">Content Clusters</a>
-            <a href="#features" class="mdl-layout__tab">Video Stats by Cluster</a>
-            <a href="#features" class="mdl-layout__tab">Top Title Words</a>
+            <a href="#stats" class="mdl-layout__tab">Video Stats by Cluster</a>
+            <a href="#cloud" class="mdl-layout__tab">Top Title Words</a>
         </div>
     </header>
     <main class="mdl-layout__content">
@@ -86,29 +86,32 @@
                         <div class="mdl-card__supporting-text">
                             <h4>Controls</h4>
                             <form action="#">
-                                <div class="mdl-select mdl-js-select mdl-select--floating-label">
-                                    <select class="mdl-select__input" id="n_tags" name="n_tags">
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                        <option value="200">200</option>
-                                    </select>
-                                    <label class="mdl-select__label" for="n_tags">Number of Tags</label>
-                                </div>
 
                                 <div class="mdl-select mdl-js-select mdl-select--floating-label">
-                                    <select class="mdl-select__input" id="n_clusters" name="n_clusters">
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
+                                    <select class="mdl-select__input" id="perc_overlap" name="n_clusters">
+                                        <option value="plot_cluster_0_01.json">0.01</option>
+                                        <option value="plot_cluster_0_05.json" selected>0.05</option>
+                                        <option value="plot_cluster_0_1.json">0.1</option>
                                     </select>
-                                    <label class="mdl-select__label" for="n_tags">Number of Clusters</label>
+                                    <label class="mdl-select__label" for="perc_overlap">Overlap Percentage</label>
                                 </div>
 
-                                <!--<p>-->
-                                    <!--<label for="tension">tension</label>-->
-                                    <!--<input id="tension" class="mdl-slider" type="range" min="0" max="100" value="85">-->
-                                <!--</p>-->
+                                <br>
+                                <label for="n_tags">Number of Tags</label>
+                                <div class="mdl-grid">
+                                    <span class="mdl-cell mdl-cell--3-col" id="n_tag_counter">100</span>
+                                    <input id="n_tags" class="mdl-slider mdl-cell mdl-cell--9-col" type="range" min="50" max="200" value="150">
+                                </div>
+
                             </form>
+                            <h4>Description</h4>
+                            <p>This bundled hierarchical plot shows the relatedness of various YouTube video content tags.
+                                A connection indicates that the connected two tags share above given percentage of videos in the video sample.
+                                Closely related content tags are clustered into groups.</p>
+                            <p>Hover over tag names to highlight related tags.</p>
+                            <p>Adjust overlap percentage to change the threshold of <br>#( overlaping videos ) / #( total videos )<br> at which we consider two
+                                tags related. Lower the percentage to discover more related tags. Increase the percentage to find more defined clusters.</p>
+                            <p>Change the number of tags to focus on the most common tags or investigate broader topic variety.</p>
                         </div>
                     </div>
                 </section>
@@ -121,22 +124,174 @@
                                 <div id="clusters_plot"></div>
                             </div>
                         </div>
-                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-                            <li class="mdl-menu__item">Lorem</li>
-                            <li class="mdl-menu__item" disabled>Ipsum</li>
-                            <li class="mdl-menu__item">Dolor</li>
-                        </ul>
                     </section>
                 </div>
             </div>
 
         </div>
-        <div class="mdl-layout__tab-panel" id="features">
-            <section class="section--center mdl-grid mdl-grid--no-spacing">
-                <div class="mdl-cell mdl-cell--12-col">
-                    <span>Nothing</span>
+
+        <div class="mdl-layout__tab-panel" id="stats">
+            <div class="mdl-grid">
+                <section class="section--left mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-grid">
+                    <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                        <div class="mdl-card__supporting-text">
+                            <h4>Controls</h4>
+                            <form action="#">
+                                <span>Cluster</span><br>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                          All
+                                        </span>
+                                        <span class="mdl-list__item-secondary-action">
+                                          <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-1">
+                                            <input type="radio" id="list-option-1" class="mdl-radio__button" name="stats-options" value="all" checked />
+                                          </label>
+                                        </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                          Gaming
+                                        </span>
+                                        <span class="mdl-list__item-secondary-action">
+                                          <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-2">
+                                            <input type="radio" id="list-option-2" class="mdl-radio__button" name="stats-options" value="0"/>
+                                          </label>
+                                        </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                          Vehicles
+                                        </span>
+                                        <span class="mdl-list__item-secondary-action">
+                                          <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-3">
+                                            <input type="radio" id="list-option-3" class="mdl-radio__button" name="stats-options" value="1"/>
+                                          </label>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </form>
+                            <h4>Description</h4>
+                            <p>Nothing</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="mdl-cell mdl-cell--9-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                Graphs
+                            </div>
+                        </div>
+                    </section>
                 </div>
-            </section>
+            </div>
+        </div>
+
+
+        <div class="mdl-layout__tab-panel" id="cloud">
+            <div class="mdl-grid">
+                <section class="section--left mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-grid">
+                    <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                        <div class="mdl-card__supporting-text">
+                            <h4>Controls</h4>
+                            <form action="#">
+                                <div class="mdl-select mdl-js-select mdl-select--floating-label">
+                                    <select class="mdl-select__input cloud-trigger" id="word_cloud" name="opts">
+                                        <option value="top100_views.json">Top 100 words for views</option>
+                                        <option value="bot100_views.json">Bottom 100 words for views</option>
+                                    </select>
+                                    <label class="mdl-select__label" for="word_cloud">Word Cloud</label>
+                                </div>
+
+                                <div style="height:20px"></div>
+
+                                <span>Statistic to Rank</span><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-1">
+                                    <input type="radio" id="st-option-1" class="mdl-radio__button cloud-trigger" name="st-options" value="views" checked>
+                                    <span class="mdl-radio__label">Views</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-2">
+                                    <input type="radio" id="st-option-2" class="mdl-radio__button cloud-trigger" name="st-options" value="ld">
+                                    <span class="mdl-radio__label">Likes / Dislikes</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-3">
+                                    <input type="radio" id="st-option-3" class="mdl-radio__button cloud-trigger" name="st-options" value="duration">
+                                    <span class="mdl-radio__label">Duration</span>
+                                </label>
+
+                                <div style="height:20px"></div>
+
+                                <div class="mdl-select mdl-js-select mdl-select--floating-label">
+                                    <select class="mdl-select__input cloud-trigger" id="group" name="opts">
+                                        <option value="all" selected>All</option>
+                                        <option value="0">Gaming</option>
+                                        <option value="1">Vehicles</option>
+                                    </select>
+                                    <label class="mdl-select__label" for="group">Group (Cluster)</label>
+                                </div>
+
+                                <div style="height:20px"></div>
+
+                                <span>Metric</span><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-1">
+                                    <input type="radio" id="mt-option-1" class="mdl-radio__button cloud-trigger" name="mt-options" value="coef" checked>
+                                    <span class="mdl-radio__label">Coefficient (effect)</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-2">
+                                    <input type="radio" id="mt-option-2" class="mdl-radio__button cloud-trigger" name="mt-options" value="p">
+                                    <span class="mdl-radio__label">P-value (confidence)</span>
+                                </label>
+
+                                <div style="height:20px"></div>
+
+                                <span>Order</span><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-1">
+                                    <input type="radio" id="od-option-1" class="mdl-radio__button cloud-trigger" name="od-options" value="top" checked>
+                                    <span class="mdl-radio__label">Top 100</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-2">
+                                    <input type="radio" id="od-option-2" class="mdl-radio__button cloud-trigger" name="od-options" value="bot">
+                                    <span class="mdl-radio__label">Buttom 100</span>
+                                </label>
+
+                                <div style="height:20px"></div>
+
+                                <span>N-grams</span><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-1">
+                                    <input type="radio" id="gr-option-1" class="mdl-radio__button cloud-trigger" name="gr-options" value="1" checked>
+                                    <span class="mdl-radio__label">1</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-2">
+                                    <input type="radio" id="gr-option-2" class="mdl-radio__button cloud-trigger" name="gr-options" value="2">
+                                    <span class="mdl-radio__label">2</span>
+                                </label><br>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-3">
+                                    <input type="radio" id="gr-option-3" class="mdl-radio__button cloud-trigger" name="gr-options" value="3">
+                                    <span class="mdl-radio__label">3</span>
+                                </label>
+
+                                <div style="height:20px"></div>
+                            </form>
+                            <h4>Description</h4>
+                            <p>Nothing</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="mdl-cell mdl-cell--9-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <div id="cloud_plot"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </main>
 </div>
@@ -147,5 +302,7 @@
 <!--<script src="scripts/old/d3.layout.js"></script>-->
 <!--<script src="scripts/old/packages.js"></script>-->
 <script src="scripts/cluster.js"></script>
+<script src="scripts/d3.layout.cloud.js"></script>
+<script src="scripts/cloud.js"></script>
 </body>
 </html>

@@ -19,34 +19,114 @@ var svg = d3.select("#clusters_plot").append("svg")
 var link = svg.append("g").selectAll(".link"),
     node = svg.append("g").selectAll(".node");
 
-d3.json("data/clusters/plot_cluster.json", function(error, classes) {
-    if (error) throw error;
+// d3.json("data/clusters/plot_cluster_0_05.json", function(error, classes) {
+//     if (error) throw error;
+//
+//     // var n_nodes = 100;
+//
+//     var first_n = classes.slice(0, n_nodes);
+//     if(n_nodes < classes.length){
+//         var rest = classes.slice(n_nodes, classes.length).map(x => x.name);
+//         first_n.forEach(function(term){
+//             term.imports = term.imports.filter(name => !rest.includes(name));
+//         });
+//         // console.log(first_n);
+//     }
+//
+//     var root = packageHierarchy(first_n)
+//         .sum(function(d) { return d.size; });
+//
+//     cluster(root);
+//
+//     link = link
+//         .data(packageImports(root.leaves()))
+//         .enter().append("path")
+//         .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+//         .attr("class", "link")
+//         .attr("d", line);
+//
+//     node = node
+//         .data(root.leaves())
+//         .enter().append("text")
+//         .attr("class", "node")
+//         .attr("dy", "0.31em")
+//         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+//         .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+//         .text(function(d) { return d.data.key; })
+//         .on("mouseover", mouseovered)
+//         .on("mouseout", mouseouted);
+// });
 
-    var root = packageHierarchy(classes)
-        .sum(function(d) { return d.size; });
+CLS_ROOT = 'data/clusters/';
 
-    cluster(root);
+function read_data(n_nodes, json){
+    d3.json(CLS_ROOT + json, function(error, classes) {
+        if (error) throw error;
 
-    link = link
-        .data(packageImports(root.leaves()))
-        .enter().append("path")
-        .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
-        .attr("class", "link")
-        .attr("d", line);
+        // var n_nodes = 100;
 
-    node = node
-        .data(root.leaves())
-        .enter().append("text")
-        .attr("class", "node")
-        .attr("dy", "0.31em")
-        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-        .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-        .text(function(d) { return d.data.key; })
-        .on("mouseover", mouseovered)
-        .on("mouseout", mouseouted);
+        var first_n = classes.slice(0, n_nodes);
+        if(n_nodes < classes.length){
+            var rest = classes.slice(n_nodes, classes.length).map(x => x.name);
+            first_n.forEach(function(term){
+                term.imports = term.imports.filter(name => !rest.includes(name));
+            });
+            // console.log(first_n);
+        }
 
-    console.log(root);
-    console.log(link);
+        var root = packageHierarchy(first_n)
+            .sum(function(d) { return d.size; });
+
+        cluster(root);
+
+        link = link
+            .data(packageImports(root.leaves()))
+            .enter().append("path")
+            .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+            .attr("class", "link")
+            .attr("d", line);
+
+        node = node
+            .data(root.leaves())
+            .enter().append("text")
+            .attr("class", "node")
+            .attr("dy", "0.31em")
+            .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+            .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+            .text(function(d) { return d.data.key; })
+            .on("mouseover", mouseovered)
+            .on("mouseout", mouseouted);
+    });
+}
+
+read_data(100, d3.select("#perc_overlap").property('value'));
+
+// listener for n_tags slider
+d3.select("#n_tags").on('change', function(){
+    d3.select("#clusters_plot svg").remove();
+    svg = d3.select("#clusters_plot").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .append("g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+    link = svg.append("g").selectAll(".link");
+    node = svg.append("g").selectAll(".node");
+    read_data(this.value, d3.select("#perc_overlap").property('value'));
+    d3.select("#n_tag_counter").text(this.value);
+});
+
+d3.select("#perc_overlap").on('change', function(){
+    d3.select("#clusters_plot svg").remove();
+    svg = d3.select("#clusters_plot").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .append("g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+    link = svg.append("g").selectAll(".link");
+    node = svg.append("g").selectAll(".node");
+    read_data(d3.select("#n_tags").property('value'), this.value);
 });
 
 function mouseovered(d) {
