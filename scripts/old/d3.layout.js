@@ -267,8 +267,8 @@
                 t, // current target
                 l, // current distance
                 k, // current force
-                x, // x-distance
-                y; // y-distance
+                x, // x_view-distance
+                y; // y_view-distance
 
             // gauss-seidel relaxation for links
             for (i = 0; i < m; ++i) {
@@ -418,8 +418,8 @@
 
             for (i = 0; i < n; ++i) {
                 o = nodes[i];
-                if (isNaN(o.x)) o.x = position("x", w);
-                if (isNaN(o.y)) o.y = position("y", h);
+                if (isNaN(o.x)) o.x = position("x_view", w);
+                if (isNaN(o.y)) o.y = position("y_view", h);
                 if (isNaN(o.px)) o.px = o.x;
                 if (isNaN(o.py)) o.py = o.y;
             }
@@ -652,7 +652,7 @@
         }
 
         /**
-         * Specifies the value function *x*, which returns a nonnegative numeric value
+         * Specifies the value function *x_view*, which returns a nonnegative numeric value
          * for each datum. The default value function is `Number`. The value function
          * is passed two arguments: the current datum and the current index.
          */
@@ -663,7 +663,7 @@
         };
 
         /**
-         * Specifies a sort comparison operator *x*. The comparator is passed two data
+         * Specifies a sort comparison operator *x_view*. The comparator is passed two data
          * elements from the data array, a and b; it returns a negative value if a is
          * less than b, a positive value if a is greater than b, and zero if a equals
          * b.
@@ -702,7 +702,7 @@
     };
 
     var d3_layout_pieSortByValue = {};
-// data is two-dimensional array of x,y; we populate y0
+// data is two-dimensional array of x_view,y_view; we populate y0
     d3.layout.stack = function() {
         var values = Object,
             order = d3_layout_stackOrders["default"],
@@ -718,7 +718,7 @@
                 return values.call(stack, d, i);
             });
 
-            // Convert each series to canonical [[x,y]] representation.
+            // Convert each series to canonical [[x_view,y_view]] representation.
             var points = series.map(function(d, i) {
                 return d.map(function(v, i) {
                     return [x.call(stack, v, i), y.call(stack, v, i)];
@@ -986,7 +986,7 @@
         };
 
         // Specifies the range of the histogram. Values outside the specified range
-        // will be ignored. The argument `x` may be specified either as a two-element
+        // will be ignored. The argument `x_view` may be specified either as a two-element
         // array representing the minimum and maximum value of the range, or as a
         // function that returns the range given the array of values and the current
         // index `i`. The default range is the extent (minimum and maximum) of the
@@ -997,11 +997,11 @@
             return histogram;
         };
 
-        // Specifies how to bin values in the histogram. The argument `x` may be
+        // Specifies how to bin values in the histogram. The argument `x_view` may be
         // specified as a number, in which case the range of values will be split
-        // uniformly into the given number of bins. Or, `x` may be an array of
+        // uniformly into the given number of bins. Or, `x_view` may be an array of
         // threshold values, defining the bins; the specified array must contain the
-        // rightmost (upper) value, thus specifying n + 1 values for n bins. Or, `x`
+        // rightmost (upper) value, thus specifying n + 1 values for n bins. Or, `x_view`
         // may be a function which is evaluated, being passed the range, the array of
         // values, and the current index `i`, returning an array of thresholds. The
         // default bin function will divide the values into uniform bins using
@@ -1014,7 +1014,7 @@
             return histogram;
         };
 
-        // Specifies whether the histogram's `y` value is a count (frequency) or a
+        // Specifies whether the histogram's `y_view` value is a count (frequency) or a
         // probability (density). The default value is true.
         histogram.frequency = function(x) {
             if (!arguments.length) return frequency;
@@ -1378,7 +1378,7 @@
                 kx,
                 ky;
 
-            // First walk, computing the initial x & y values.
+            // First walk, computing the initial x_view & y_view values.
             d3_layout_treeVisitAfter(root, function(node) {
                 var children = node.children;
                 if (children && children.length) {
@@ -1397,7 +1397,7 @@
                 x0 = left.x - separation(left, right) / 2,
                 x1 = right.x + separation(right, left) / 2;
 
-            // Second walk, normalizing x & y to the desired size.
+            // Second walk, normalizing x_view & y_view to the desired size.
             d3_layout_treeVisitAfter(root, function(node) {
                 node.x = (node.x - x0) / (x1 - x0) * size[0];
                 node.y = (1 - node.y / root.y) * size[1];
@@ -1559,7 +1559,7 @@
                 x1 = right.x + separation(right, left) / 2,
                 y1 = deep.depth || 1;
 
-            // Clear temporary layout variables; transform x and y.
+            // Clear temporary layout variables; transform x_view and y_view.
             d3_layout_treeVisitAfter(root, function(node) {
                 node.x = (node.x - x0) / (x1 - x0) * size[0];
                 node.y = node.depth / y1 * size[1];

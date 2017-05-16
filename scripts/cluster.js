@@ -26,7 +26,7 @@ var link = svg.append("g").selectAll(".link"),
 //
 //     var first_n = classes.slice(0, n_nodes);
 //     if(n_nodes < classes.length){
-//         var rest = classes.slice(n_nodes, classes.length).map(x => x.name);
+//         var rest = classes.slice(n_nodes, classes.length).map(x_view => x_view.name);
 //         first_n.forEach(function(term){
 //             term.imports = term.imports.filter(name => !rest.includes(name));
 //         });
@@ -50,8 +50,8 @@ var link = svg.append("g").selectAll(".link"),
 //         .enter().append("text")
 //         .attr("class", "node")
 //         .attr("dy", "0.31em")
-//         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
-//         .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+//         .attr("transform", function(d) { return "rotate(" + (d.x_view - 90) + ")translate(" + (d.y_view + 8) + ",0)" + (d.x_view < 180 ? "" : "rotate(180)"); })
+//         .attr("text-anchor", function(d) { return d.x_view < 180 ? "start" : "end"; })
 //         .text(function(d) { return d.data.key; })
 //         .on("mouseover", mouseovered)
 //         .on("mouseout", mouseouted);

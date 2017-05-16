@@ -370,3 +370,45 @@ html, body {
 .mdl-select__expandable-holder .mdl-select__label:after {
   bottom: 0;
 }
+
+/*.mdl-list__item {*/
+  /*!*padding: 0;*!*/
+  /*min-height: 20px;*/
+/*}*/
+
+.bar {
+    fill: #6F257F;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #D4D8DA;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+.x path {
+    display: none;
+}
+.toolTip {
+    position: absolute;
+    display: none;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #6F257F;
+    padding: 14px;
+    text-align: center;
+}
+
+svg {
+    font: 10px sans-serif;
+    shape-rendering: crispEdges;
+}
+
+path.domain {
+    stroke: none;
+}
+
+.y .tick line {
+    stroke: #ddd;
+}

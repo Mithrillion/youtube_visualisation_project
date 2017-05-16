@@ -179,15 +179,15 @@ d3.zip = function() {
 function d3_zipLength(d) {
   return d.length;
 }
-// Locate the insertion point for x in a to maintain sorted order. The
+// Locate the insertion point for x_view in a to maintain sorted order. The
 // arguments lo and hi may be used to specify a subset of the array which should
-// be considered; by default the entire array is used. If x is already present
+// be considered; by default the entire array is used. If x_view is already present
 // in a, the insertion point will be before (to the left of) any existing
 // entries. The return value is suitable for use as the first argument to
 // `array.splice` assuming that a is already sorted.
 //
 // The returned insertion point i partitions the array a into two halves so that
-// all v < x for v in a[lo:i] for the left side and all v >= x for v in a[i:hi]
+// all v < x_view for v in a[lo:i] for the left side and all v >= x_view for v in a[i:hi]
 // for the right side.
 d3.bisectLeft = function(a, x, lo, hi) {
   if (arguments.length < 3) lo = 0;
@@ -201,10 +201,10 @@ d3.bisectLeft = function(a, x, lo, hi) {
 };
 
 // Similar to bisectLeft, but returns an insertion point which comes after (to
-// the right of) any existing entries of x in a.
+// the right of) any existing entries of x_view in a.
 //
 // The returned insertion point i partitions the array into two halves so that
-// all v <= x for v in a[lo:i] for the left side and all v > x for v in a[i:hi]
+// all v <= x_view for v in a[lo:i] for the left side and all v > x_view for v in a[i:hi]
 // for the right side.
 d3.bisect =
 d3.bisectRight = function(a, x, lo, hi) {
@@ -631,7 +631,7 @@ function d3_format_group(value) {
   while (i > 0) t.push(value.substring(i -= 3, i + 3));
   return t.reverse().join(",") + f;
 }
-var d3_formatPrefixes = ["y","z","a","f","p","n","μ","m","","k","M","G","T","P","E","Z","Y"].map(d3_formatPrefix);
+var d3_formatPrefixes = ["y_view","z","a","f","p","n","μ","m","","k","M","G","T","P","E","Z","Y"].map(d3_formatPrefix);
 
 d3.formatPrefix = function(value, precision) {
   var i = 0;
@@ -2253,9 +2253,9 @@ d3.transform = function(string) {
   return new d3_transform(d3_transformG.transform.baseVal.consolidate().matrix);
 };
 
-// Compute x-scale and normalize the first row.
+// Compute x_view-scale and normalize the first row.
 // Compute shear and make second row orthogonal to first.
-// Compute y-scale and normalize the second row.
+// Compute y_view-scale and normalize the second row.
 // Finally, compute the rotation.
 function d3_transform(m) {
   var r0 = [m.a, m.b],
@@ -2956,7 +2956,7 @@ d3.svg.line = function() {
 };
 
 // Converts the specified array of data into an array of points
-// (x-y tuples), by evaluating the specified `x` and `y` functions on each
+// (x_view-y_view tuples), by evaluating the specified `x_view` and `y_view` functions on each
 // data point. The `this` context of the evaluated functions is the specified
 // "self" object; each function is passed the current datum and index.
 function d3_svg_linePoints(self, d, x, y) {
@@ -2981,12 +2981,12 @@ function d3_svg_linePoints(self, d, x, y) {
   return points;
 }
 
-// The default `x` property, which references d[0].
+// The default `x_view` property, which references d[0].
 function d3_svg_lineX(d) {
   return d[0];
 }
 
-// The default `y` property, which references d[1].
+// The default `y_view` property, which references d[1].
 function d3_svg_lineY(d) {
   return d[1];
 }
@@ -3288,7 +3288,7 @@ function d3_svg_lineMonotoneTangents(points) {
   while (++i < j) {
     d = d3_svg_lineSlope(points[i], points[i + 1]);
 
-    // 3. If two successive yk = y{k + 1} are equal (i.e., d is zero), then set
+    // 3. If two successive yk = y_view{k + 1} are equal (i.e., d is zero), then set
     // mk = m{k + 1} = 0 as the spline connecting these points must be flat to
     // preserve monotonicity. Ignore step 4 and 5 for those k.
 
@@ -3310,7 +3310,7 @@ function d3_svg_lineMonotoneTangents(points) {
     }
   }
 
-  // Compute the normalized tangent vector from the slopes. Note that if x is
+  // Compute the normalized tangent vector from the slopes. Note that if x_view is
   // not monotonic, it's possible that the slope will be infinite, so we protect
   // against NaN by setting the coordinate to zero.
   i = -1; while (++i <= j) {
@@ -3810,7 +3810,7 @@ d3.svg.axis = function() {
           tickTransform = d3_svg_axisX;
           subtickUpdate.attr("x2", 0).attr("y2", tickMinorSize);
           tickUpdate.select("line").attr("x2", 0).attr("y2", tickMajorSize);
-          tickUpdate.select("text").attr("x", 0).attr("y", Math.max(tickMajorSize, 0) + tickPadding).attr("dy", ".71em").attr("text-anchor", "middle");
+          tickUpdate.select("text").attr("x_view", 0).attr("y_view", Math.max(tickMajorSize, 0) + tickPadding).attr("dy", ".71em").attr("text-anchor", "middle");
           pathUpdate.attr("d", "M" + range[0] + "," + tickEndSize + "V0H" + range[1] + "V" + tickEndSize);
           break;
         }
@@ -3818,7 +3818,7 @@ d3.svg.axis = function() {
           tickTransform = d3_svg_axisX;
           subtickUpdate.attr("x2", 0).attr("y2", -tickMinorSize);
           tickUpdate.select("line").attr("x2", 0).attr("y2", -tickMajorSize);
-          tickUpdate.select("text").attr("x", 0).attr("y", -(Math.max(tickMajorSize, 0) + tickPadding)).attr("dy", "0em").attr("text-anchor", "middle");
+          tickUpdate.select("text").attr("x_view", 0).attr("y_view", -(Math.max(tickMajorSize, 0) + tickPadding)).attr("dy", "0em").attr("text-anchor", "middle");
           pathUpdate.attr("d", "M" + range[0] + "," + -tickEndSize + "V0H" + range[1] + "V" + -tickEndSize);
           break;
         }
@@ -3826,7 +3826,7 @@ d3.svg.axis = function() {
           tickTransform = d3_svg_axisY;
           subtickUpdate.attr("x2", -tickMinorSize).attr("y2", 0);
           tickUpdate.select("line").attr("x2", -tickMajorSize).attr("y2", 0);
-          tickUpdate.select("text").attr("x", -(Math.max(tickMajorSize, 0) + tickPadding)).attr("y", 0).attr("dy", ".32em").attr("text-anchor", "end");
+          tickUpdate.select("text").attr("x_view", -(Math.max(tickMajorSize, 0) + tickPadding)).attr("y_view", 0).attr("dy", ".32em").attr("text-anchor", "end");
           pathUpdate.attr("d", "M" + -tickEndSize + "," + range[0] + "H0V" + range[1] + "H" + -tickEndSize);
           break;
         }
@@ -3834,7 +3834,7 @@ d3.svg.axis = function() {
           tickTransform = d3_svg_axisY;
           subtickUpdate.attr("x2", tickMinorSize).attr("y2", 0);
           tickUpdate.select("line").attr("x2", tickMajorSize).attr("y2", 0);
-          tickUpdate.select("text").attr("x", Math.max(tickMajorSize, 0) + tickPadding).attr("y", 0).attr("dy", ".32em").attr("text-anchor", "start");
+          tickUpdate.select("text").attr("x_view", Math.max(tickMajorSize, 0) + tickPadding).attr("y_view", 0).attr("dy", ".32em").attr("text-anchor", "start");
           pathUpdate.attr("d", "M" + tickEndSize + "," + range[0] + "H0V" + range[1] + "H" + tickEndSize);
           break;
         }
@@ -3931,8 +3931,8 @@ function d3_svg_axisSubdivide(scale, ticks, m) {
 }
 d3.svg.brush = function() {
   var event = d3.dispatch("brushstart", "brush", "brushend"),
-      x, // x-scale, optional
-      y, // y-scale, optional
+      x, // x_view-scale, optional
+      y, // y_view-scale, optional
       extent = [[0, 0], [0, 0]]; // [x0, y0], [x1, y1]
 
   function brush(g) {
@@ -4125,16 +4125,16 @@ var d3_svg_brush,
     d3_svg_brushOffset;
 
 function d3_svg_brushRedrawX(g, extent) {
-  g.select(".extent").attr("x", extent[0][0]);
-  g.selectAll(".n,.s,.w,.nw,.sw").attr("x", extent[0][0] - 2);
-  g.selectAll(".e,.ne,.se").attr("x", extent[1][0] - 3);
+  g.select(".extent").attr("x_view", extent[0][0]);
+  g.selectAll(".n,.s,.w,.nw,.sw").attr("x_view", extent[0][0] - 2);
+  g.selectAll(".e,.ne,.se").attr("x_view", extent[1][0] - 3);
   g.selectAll(".extent,.n,.s").attr("width", extent[1][0] - extent[0][0]);
 }
 
 function d3_svg_brushRedrawY(g, extent) {
-  g.select(".extent").attr("y", extent[0][1]);
-  g.selectAll(".n,.e,.w,.nw,.ne").attr("y", extent[0][1] - 3);
-  g.selectAll(".s,.se,.sw").attr("y", extent[1][1] - 4);
+  g.select(".extent").attr("y_view", extent[0][1]);
+  g.selectAll(".n,.e,.w,.nw,.ne").attr("y_view", extent[0][1] - 3);
+  g.selectAll(".s,.se,.sw").attr("y_view", extent[1][1] - 4);
   g.selectAll(".extent,.e,.w").attr("height", extent[1][1] - extent[0][1]);
 }
 
@@ -4507,7 +4507,7 @@ function d3_behavior_zoomDelta() {
         .style("top", 0)
         .style("height", 0)
         .style("width", 0)
-        .style("overflow-y", "scroll")
+        .style("overflow-y_view", "scroll")
       .append("div")
         .style("height", "2000px")
       .node().parentNode;
