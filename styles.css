@@ -412,3 +412,12 @@ path.domain {
 .y .tick line {
     stroke: #ddd;
 }
+
+.stat-focused {
+  font-weight: bolder;
+  fill: red;
+}
+
+.stat-hover {
+  color: #d62728;
+}

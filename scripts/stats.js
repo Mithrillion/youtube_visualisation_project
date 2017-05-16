@@ -44,15 +44,25 @@ function render_vc(json){
             .attr("height", y_view.bandwidth())
             .attr("y", function(d) { return y_view(d.group); })
             .attr("width", function(d) { return x_view(d.views); })
-            .on("mouseover", function(d){
+            .on("mousemove", function(d){
                 tooltip_views
                     .style("left", d3.mouse(this)[0] + 200 + "px")
                     .style("top", d3.mouse(this)[1] + 50 + "px")
                     .style("display", "inline-block")
                     .style("position", "absolute")
                     .html((d.group) + "<br>" + "views:&nbsp" + Math.round(100.*d.views)/100);
+                d3.selectAll("#stats text").nodes().filter(s => s.innerHTML.replace(/&amp;/g, '&') == d.group).forEach(function(s){
+                    s.classList.add("stat-focused");
+                });
             })
-            .on("mouseout", function(d){ tooltip_views.style("display", "none");});
+            .on("mouseout", function(d){
+                tooltip_views.style("display", "none");
+                d3.selectAll("#stats text").nodes().filter(s => s.innerHTML.replace(/&amp;/g, '&') == d.group).forEach(function(s){
+                    s.classList.remove("stat-focused");
+                });
+            });
+
+        console.log(x_view);
     });
 }
 

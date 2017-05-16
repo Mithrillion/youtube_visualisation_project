@@ -66,9 +66,24 @@ function render_ld(json, asPercentage) {
             .attr("y", function(d) { return y(d[1]); })
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
             .attr("width", x.bandwidth())
-            .on("mouseover", function() { tooltip.style("display", null); })
-            .on("mouseout", function() { tooltip.style("display", "none"); })
+            .on("mouseover", function(d) {
+                tooltip.style("display", null);
+                d3.selectAll("#stats text").nodes().filter(s => s.innerHTML.replace(/&amp;/g, '&') == d.data.group).forEach(function(s){
+                    s.classList.remove("stat-focused");
+                });
+            })
+            .on("mouseout", function(d) {
+                tooltip.style("display", "none");
+                d3.selectAll("#stats text").nodes().filter(s => s.innerHTML.replace(/&amp;/g, '&') == d.data.group).forEach(function(s){
+                    s.classList.remove("stat-focused");
+                });
+            })
             .on("mousemove", function(d) {
+                // console.log(d.data.group);
+                d3.selectAll("#stats text").nodes().filter(s => s.innerHTML.replace(/&amp;/g, '&') == d.data.group).forEach(function(s){
+                    s.classList.add("stat-focused");
+                });
+
                 var xPosition = d3.mouse(this)[0] - 5;
                 var yPosition = d3.mouse(this)[1] - 5;
                 tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
@@ -87,7 +102,7 @@ function render_ld(json, asPercentage) {
             .attr("x", 2)
             .attr("y", y(y.ticks().pop()) + 0.5)
             .attr("dy", "0.32em")
-            .attr("fill", "#000")
+            // .attr("fill", "#000")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start");
 
