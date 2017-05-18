@@ -379,6 +379,9 @@ html, body {
 .bar {
     fill: #6F257F;
 }
+#lang_stat .bar {
+  fill: #8823f4;
+}
 .axis path,
 .axis line {
     fill: none;

@@ -61,8 +61,6 @@ function render_vc(json){
                     s.classList.remove("stat-focused");
                 });
             });
-
-        console.log(x_view);
     });
 }
 
