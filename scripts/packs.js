@@ -5,7 +5,7 @@
 PK_ROOT = "data/words/";
 
 function draw_packed(json){
-    var svg = d3.select("#words").append("svg").attr("width", 600).attr("height", 600).attr("id", "word_plot"),
+    var svg = d3.select("#words").append("svg").attr("width", 800).attr("height", 800).attr("id", "word_plot"),
         margin = 20,
         diameter = +svg.attr("width"),
         g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
@@ -23,7 +23,7 @@ function draw_packed(json){
         if (error) throw error;
 
         root = d3.hierarchy(root)
-            .sum(function(d) { return d.size; })
+            .sum(function(d) { return Math.pow(d.size, 2); })
             .sort(function(a, b) { return b.value - a.value; });
 
         var focus = root,
@@ -34,7 +34,7 @@ function draw_packed(json){
             .data(nodes)
             .enter().append("circle")
             .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
-            .style("fill", function(d) { return d.children ? color(d.depth) : null; })
+            .style("fill", function(d) { return d.children ? color(d.depth) : (d.data.size > 0 ? "#EEE8AA" : "#DC143C"); })
             .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
 
         var text = g.selectAll("text")
@@ -43,12 +43,14 @@ function draw_packed(json){
             .attr("class", "label")
             .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
             .style("display", function(d) { return d.parent === root ? "inline" : "none"; })
-            .text(function(d) { return d.data.name; });
+            .style("font-size", "12px")
+            // .text(function(d) { return d.data.name; });
+            .text(function(d) { return d.data.children ? d.data.children.filter(c => c.size > 0).slice(0, 1).map(c => c.name).reduce((a, b) => a + "\t" + b) : d.data.name; });
 
         var node = g.selectAll("circle,text");
 
         svg
-            .style("background", color(-1))
+            // .style("background", color(-1))
             .on("click", function() { zoom(root); });
 
         zoomTo([root.x, root.y, root.r * 2 + margin]);
@@ -110,4 +112,21 @@ function draw_packed(json){
     // });
 }
 
-draw_packed("flare.json");
+draw_packed("lsa_fame_all.json");
+
+var sortOrder = 'fame';
+var cls = 'all';
+
+d3.selectAll(".words-trigger").on('change', function(){
+    console.log("triggered by " + this.value + "!");
+    sortOrder = this.value;
+    d3.select("#word_plot").remove();
+    draw_packed("lsa_" + sortOrder + "_" + cls + ".json");
+});
+
+d3.select("#group").on('change', function(){
+    console.log("triggered by " + this.value + "!");
+    cls = this.value;
+    d3.select("#word_plot").remove();
+    draw_packed("lsa_" + sortOrder + "_" + cls + ".json");
+});
