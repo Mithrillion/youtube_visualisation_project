@@ -265,7 +265,19 @@
                                 </ul>
                             </form>
                             <h4>Description</h4>
-                            <p>Nothing</p>
+                            <p>These bar charts illustrate some of the video metadata for each cluster in the previous page. When
+                            "All" is selected, comparison between clusters will be displayed on the first two charts. When
+                            a particular cluster is selected, comparison between the top tags within the cluster will be
+                                displayed.</p>
+                            <p>Select "Like vs Dislike as Percentage" to display the likes vs dislikes chart as percentages of likes / dislikes
+                            versus sum of likes and dislikes. This is useful for discovering the average reception of videos
+                            in each cluster or under each tag.</p>
+                            <p>Hover over bars to view precise numbers.</p>
+                            <p>The final chart is a breakdown of title language for the selected cluster. Due to the
+                            limited length of titles, language detection is not highly accurate, however it is still useful
+                            as an estimate of the overall language distribution per cluster. As we can see, the vast majority
+                            of videos on YouTube are in English, however the rest of the languages make a sizable contribution
+                            to the YouTube video collection.</p>
                         </div>
                     </div>
                 </section>
@@ -349,7 +361,37 @@
                                 <div style="height:20px"></div>
                             </form>
                             <h4>Description</h4>
-                            <p>Nothing</p>
+                            <p>This bubble chart demonstrates the result of a latent semantic analysis (LSA). We calculate
+                            the TF-IDF of top 10000 bi-grams in all English video titles and construct a bag-of-words model for
+                            each title, then perform an SVD (similar to PCA) to combine similar bi-grams and reduce the
+                            dimensionality to 100. This also reduces the correlation between the features in the BOW model.
+                            We then perform a linear regression analysis of log(views) versus title representation in the
+                            100-dimension space.
+
+                            <p><b>How to read:</b></p>
+
+                            <p>The vectors most correlated with more views (or less views, depending on
+                            whether "words of fame" or "words of shame" is chosen) are shown in the bubble chart with the
+                            most significant word in the vector displayed as caption. We may use the caption words to quickly
+                            identify the most popular or least popular (but still common) topics on YouTube.</p>
+
+                            <p><b>Click on bubbles</b> to zoom in to detailed view. In the detailed view, the top 10 most significant
+                                words are displayed as child bubbles. <b>Bubble size</b> is proportional to the contribution of that word
+                                in the vector. <b>Colour</b> indicates whether the word contributes positively or negatively to the vector.
+                            Word bubbles in yellow implies either the word appears commonly together with the other positive (yellow)
+                            word overall, or when they appear together in a title, they are more likely to contribute to
+                            higher (or lower) views. Conversely, red words bubble indicates that the words normally do not appear
+                            together with the positive (yellow) words, or that the positive words tend to contribute more
+                            to views without them.</p>
+
+                            <p><b>Click</b> again in detailed view to return to default view.</p>
+
+                            <p><b>Change</b> the group selection option to focus on individual clusters.</p>
+
+                            <p>Note: due to the use of a lemmatiser and removal of stop words, some words may not appear
+                                in their correct form within a phrase and some words might be missing (e.g. "league legend" or
+                            "star war"). Also because the language detector makes mistakes, some non-English words also
+                            end up on the bubble chart.</p>
                         </div>
                     </div>
                 </section>
@@ -367,131 +409,13 @@
             </div>
         </div>
 
-
-        <!--<div class="mdl-layout__tab-panel" id="cloud">-->
-            <!--<div class="mdl-grid">-->
-                <!--<section class="section&#45;&#45;left mdl-shadow&#45;&#45;2dp mdl-cell mdl-cell&#45;&#45;3-col mdl-grid">-->
-                    <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;12-col-desktop mdl-cell&#45;&#45;6-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
-                        <!--<div class="mdl-card__supporting-text">-->
-                            <!--<h4>Controls</h4>-->
-                            <!--<form action="#">-->
-                                <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
-                                    <!--<select class="mdl-select__input cloud-trigger" id="word_cloud" name="opts">-->
-                                        <!--<option value="top100_views.json">Top 100 words for views</option>-->
-                                        <!--<option value="bot100_views.json">Bottom 100 words for views</option>-->
-                                    <!--</select>-->
-                                    <!--<label class="mdl-select__label" for="word_cloud">Word Cloud</label>-->
-                                <!--</div>-->
-
-                                <!--<div style="height:20px"></div>-->
-
-                                <!--<span>Statistic to Rank</span><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-1">-->
-                                    <!--<input type="radio" id="st-option-1" class="mdl-radio__button cloud-trigger" name="st-options" value="views" checked>-->
-                                    <!--<span class="mdl-radio__label">Views</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-2">-->
-                                    <!--<input type="radio" id="st-option-2" class="mdl-radio__button cloud-trigger" name="st-options" value="ld">-->
-                                    <!--<span class="mdl-radio__label">Likes / Dislikes</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-3">-->
-                                    <!--<input type="radio" id="st-option-3" class="mdl-radio__button cloud-trigger" name="st-options" value="duration">-->
-                                    <!--<span class="mdl-radio__label">Duration</span>-->
-                                <!--</label>-->
-
-                                <!--<div style="height:20px"></div>-->
-
-                                <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
-                                    <!--<select class="mdl-select__input cloud-trigger" id="group" name="opts">-->
-                                        <!--<option value="all" selected>All</option>-->
-                                        <!--<option value="0">Gaming</option>-->
-                                        <!--<option value="1">Misc. Hobbies</option>-->
-                                        <!--<option value="2">Music & Entertainment</option>-->
-                                        <!--<option value="3">Vehicles</option>-->
-                                        <!--<option value="4">Animation & Fashion</option>-->
-                                        <!--<option value="5">Sports</option>-->
-                                        <!--<option value="6">Outdoors & Pets</option>-->
-                                        <!--<option value="7">Food & Cooking</option>-->
-                                        <!--<option value="8">Gadgets</option>-->
-                                        <!--<option value="9">Aircraft</option>-->
-                                    <!--</select>-->
-                                    <!--<label class="mdl-select__label" for="group">Group (Cluster)</label>-->
-                                <!--</div>-->
-
-                                <!--<div style="height:20px"></div>-->
-
-                                <!--<span>Metric</span><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-1">-->
-                                    <!--<input type="radio" id="mt-option-1" class="mdl-radio__button cloud-trigger" name="mt-options" value="coef" checked>-->
-                                    <!--<span class="mdl-radio__label">Coefficient (effect)</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-2">-->
-                                    <!--<input type="radio" id="mt-option-2" class="mdl-radio__button cloud-trigger" name="mt-options" value="p">-->
-                                    <!--<span class="mdl-radio__label">P-value (confidence)</span>-->
-                                <!--</label>-->
-
-                                <!--<div style="height:20px"></div>-->
-
-                                <!--<span>Order</span><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-1">-->
-                                    <!--<input type="radio" id="od-option-1" class="mdl-radio__button cloud-trigger" name="od-options" value="top" checked>-->
-                                    <!--<span class="mdl-radio__label">Top 100</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-2">-->
-                                    <!--<input type="radio" id="od-option-2" class="mdl-radio__button cloud-trigger" name="od-options" value="bot">-->
-                                    <!--<span class="mdl-radio__label">Buttom 100</span>-->
-                                <!--</label>-->
-
-                                <!--<div style="height:20px"></div>-->
-
-                                <!--<span>N-grams</span><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-1">-->
-                                    <!--<input type="radio" id="gr-option-1" class="mdl-radio__button cloud-trigger" name="gr-options" value="1" checked>-->
-                                    <!--<span class="mdl-radio__label">1</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-2">-->
-                                    <!--<input type="radio" id="gr-option-2" class="mdl-radio__button cloud-trigger" name="gr-options" value="2">-->
-                                    <!--<span class="mdl-radio__label">2</span>-->
-                                <!--</label><br>-->
-                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-3">-->
-                                    <!--<input type="radio" id="gr-option-3" class="mdl-radio__button cloud-trigger" name="gr-options" value="3">-->
-                                    <!--<span class="mdl-radio__label">3</span>-->
-                                <!--</label>-->
-
-                                <!--<div style="height:20px"></div>-->
-                            <!--</form>-->
-                            <!--<h4>Description</h4>-->
-                            <!--<p>Nothing</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</section>-->
-
-                <!--<div class="mdl-cell mdl-cell&#45;&#45;9-col">-->
-                    <!--<section class="section&#45;&#45;center mdl-grid mdl-grid&#45;&#45;no-spacing mdl-shadow&#45;&#45;2dp">-->
-
-                        <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;12-col-desktop mdl-cell&#45;&#45;6-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
-                            <!--<div class="mdl-card__supporting-text">-->
-                                <!--<div id="cloud_plot"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</section>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
     </main>
 </div>
 <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script src="scripts/select.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<!--<script src="scripts/rebind.js"></script>-->
-<!--<script src="scripts/old/d3.layout.js"></script>-->
-<!--<script src="scripts/old/packages.js"></script>-->
 <script src="scripts/cluster.js"></script>
-<!--<script src="scripts/d3.layout.cloud.js"></script>-->
-<!--<script src="scripts/cloud.js"></script>-->
 <script src="scripts/packs.js"></script>
-<!--<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>-->
 <script src="scripts/stats.js"></script>
 <script src="scripts/stats_ld.js"></script>
 <script src="scripts/lang.js"></script>
