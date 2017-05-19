@@ -306,7 +306,6 @@
             </div>
         </div>
 
-
         <div class="mdl-layout__tab-panel" id="cloud">
             <div class="mdl-grid">
                 <section class="section--left mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-grid">
@@ -410,13 +409,126 @@
 
                         <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
                             <div class="mdl-card__supporting-text">
-                                <div id="cloud_plot"></div>
+                                <div id="words"></div>
                             </div>
                         </div>
                     </section>
                 </div>
             </div>
         </div>
+
+
+        <!--<div class="mdl-layout__tab-panel" id="cloud">-->
+            <!--<div class="mdl-grid">-->
+                <!--<section class="section&#45;&#45;left mdl-shadow&#45;&#45;2dp mdl-cell mdl-cell&#45;&#45;3-col mdl-grid">-->
+                    <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;12-col-desktop mdl-cell&#45;&#45;6-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
+                        <!--<div class="mdl-card__supporting-text">-->
+                            <!--<h4>Controls</h4>-->
+                            <!--<form action="#">-->
+                                <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
+                                    <!--<select class="mdl-select__input cloud-trigger" id="word_cloud" name="opts">-->
+                                        <!--<option value="top100_views.json">Top 100 words for views</option>-->
+                                        <!--<option value="bot100_views.json">Bottom 100 words for views</option>-->
+                                    <!--</select>-->
+                                    <!--<label class="mdl-select__label" for="word_cloud">Word Cloud</label>-->
+                                <!--</div>-->
+
+                                <!--<div style="height:20px"></div>-->
+
+                                <!--<span>Statistic to Rank</span><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-1">-->
+                                    <!--<input type="radio" id="st-option-1" class="mdl-radio__button cloud-trigger" name="st-options" value="views" checked>-->
+                                    <!--<span class="mdl-radio__label">Views</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-2">-->
+                                    <!--<input type="radio" id="st-option-2" class="mdl-radio__button cloud-trigger" name="st-options" value="ld">-->
+                                    <!--<span class="mdl-radio__label">Likes / Dislikes</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="st-option-3">-->
+                                    <!--<input type="radio" id="st-option-3" class="mdl-radio__button cloud-trigger" name="st-options" value="duration">-->
+                                    <!--<span class="mdl-radio__label">Duration</span>-->
+                                <!--</label>-->
+
+                                <!--<div style="height:20px"></div>-->
+
+                                <!--<div class="mdl-select mdl-js-select mdl-select&#45;&#45;floating-label">-->
+                                    <!--<select class="mdl-select__input cloud-trigger" id="group" name="opts">-->
+                                        <!--<option value="all" selected>All</option>-->
+                                        <!--<option value="0">Gaming</option>-->
+                                        <!--<option value="1">Misc. Hobbies</option>-->
+                                        <!--<option value="2">Music & Entertainment</option>-->
+                                        <!--<option value="3">Vehicles</option>-->
+                                        <!--<option value="4">Animation & Fashion</option>-->
+                                        <!--<option value="5">Sports</option>-->
+                                        <!--<option value="6">Outdoors & Pets</option>-->
+                                        <!--<option value="7">Food & Cooking</option>-->
+                                        <!--<option value="8">Gadgets</option>-->
+                                        <!--<option value="9">Aircraft</option>-->
+                                    <!--</select>-->
+                                    <!--<label class="mdl-select__label" for="group">Group (Cluster)</label>-->
+                                <!--</div>-->
+
+                                <!--<div style="height:20px"></div>-->
+
+                                <!--<span>Metric</span><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-1">-->
+                                    <!--<input type="radio" id="mt-option-1" class="mdl-radio__button cloud-trigger" name="mt-options" value="coef" checked>-->
+                                    <!--<span class="mdl-radio__label">Coefficient (effect)</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mt-option-2">-->
+                                    <!--<input type="radio" id="mt-option-2" class="mdl-radio__button cloud-trigger" name="mt-options" value="p">-->
+                                    <!--<span class="mdl-radio__label">P-value (confidence)</span>-->
+                                <!--</label>-->
+
+                                <!--<div style="height:20px"></div>-->
+
+                                <!--<span>Order</span><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-1">-->
+                                    <!--<input type="radio" id="od-option-1" class="mdl-radio__button cloud-trigger" name="od-options" value="top" checked>-->
+                                    <!--<span class="mdl-radio__label">Top 100</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="od-option-2">-->
+                                    <!--<input type="radio" id="od-option-2" class="mdl-radio__button cloud-trigger" name="od-options" value="bot">-->
+                                    <!--<span class="mdl-radio__label">Buttom 100</span>-->
+                                <!--</label>-->
+
+                                <!--<div style="height:20px"></div>-->
+
+                                <!--<span>N-grams</span><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-1">-->
+                                    <!--<input type="radio" id="gr-option-1" class="mdl-radio__button cloud-trigger" name="gr-options" value="1" checked>-->
+                                    <!--<span class="mdl-radio__label">1</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-2">-->
+                                    <!--<input type="radio" id="gr-option-2" class="mdl-radio__button cloud-trigger" name="gr-options" value="2">-->
+                                    <!--<span class="mdl-radio__label">2</span>-->
+                                <!--</label><br>-->
+                                <!--<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gr-option-3">-->
+                                    <!--<input type="radio" id="gr-option-3" class="mdl-radio__button cloud-trigger" name="gr-options" value="3">-->
+                                    <!--<span class="mdl-radio__label">3</span>-->
+                                <!--</label>-->
+
+                                <!--<div style="height:20px"></div>-->
+                            <!--</form>-->
+                            <!--<h4>Description</h4>-->
+                            <!--<p>Nothing</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</section>-->
+
+                <!--<div class="mdl-cell mdl-cell&#45;&#45;9-col">-->
+                    <!--<section class="section&#45;&#45;center mdl-grid mdl-grid&#45;&#45;no-spacing mdl-shadow&#45;&#45;2dp">-->
+
+                        <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;12-col-desktop mdl-cell&#45;&#45;6-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
+                            <!--<div class="mdl-card__supporting-text">-->
+                                <!--<div id="cloud_plot"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</section>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
     </main>
 </div>
 <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -426,8 +538,9 @@
 <!--<script src="scripts/old/d3.layout.js"></script>-->
 <!--<script src="scripts/old/packages.js"></script>-->
 <script src="scripts/cluster.js"></script>
-<script src="scripts/d3.layout.cloud.js"></script>
-<script src="scripts/cloud.js"></script>
+<!--<script src="scripts/d3.layout.cloud.js"></script>-->
+<!--<script src="scripts/cloud.js"></script>-->
+<script src="scripts/packs.js"></script>
 <!--<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>-->
 <script src="scripts/stats.js"></script>
 <script src="scripts/stats_ld.js"></script>

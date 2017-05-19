@@ -387,7 +387,7 @@ html, body {
     fill: none;
     stroke: #D4D8DA;
     stroke-width: 1px;
-    shape-rendering: crispEdges;
+    /*shape-rendering: crispEdges;*/
 }
 .x path {
     display: none;
@@ -405,7 +405,7 @@ html, body {
 
 svg {
     font: 10px sans-serif;
-    shape-rendering: crispEdges;
+    /*shape-rendering: crispEdges;*/
 }
 
 path.domain {
@@ -423,4 +423,46 @@ path.domain {
 
 .stat-hover {
   color: #d62728;
+}
+
+/*circle {*/
+  /*fill: rgb(31, 119, 180);*/
+  /*fill-opacity: .25;*/
+  /*stroke: rgb(31, 119, 180);*/
+  /*stroke-width: 1px;*/
+/*}*/
+
+/*.leaf circle {*/
+  /*fill: #ff7f0e;*/
+  /*fill-opacity: 1;*/
+/*}*/
+
+/*#word_plot text {*/
+  /*font: 10px sans-serif;*/
+  /*text-anchor: middle;*/
+/*}*/
+
+#word_plot .node {
+  cursor: pointer;
+}
+
+#word_plot .node:hover {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+#word_plot .node--leaf {
+  fill: white;
+}
+
+#word_plot .label {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+#word_plot .label,
+#word_plot .node--root,
+#word_plot .node--leaf {
+  pointer-events: none;
 }
