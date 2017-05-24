@@ -34,7 +34,7 @@ function draw_packed(json){
             .data(nodes)
             .enter().append("circle")
             .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
-            .style("fill", function(d) { return d.children ? color(d.depth) : (d.data.size > 0 ? "#EEE8AA" : "#DC143C"); })
+            .style("fill", function(d) { return d.children ? color(d.depth) : (d.data.size > 0 ? "#0ACF00" : "#FF7400"); })
             .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
 
         var text = g.selectAll("text")
@@ -44,6 +44,7 @@ function draw_packed(json){
             .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
             .style("display", function(d) { return d.parent === root ? "inline" : "none"; })
             .style("font-size", "12px")
+            .style("font-weight", "bold")
             // .text(function(d) { return d.data.name; });
             .text(function(d) { return d.data.children ? d.data.children.filter(c => c.size > 0).slice(0, 1).map(c => c.name).reduce((a, b) => a + "\t" + b) : d.data.name; });
 
