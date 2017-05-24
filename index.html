@@ -72,13 +72,98 @@
         <div class="mdl-layout--large-screen-only mdl-layout__header-row" style="height: 20px">
         </div>
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-            <a href="#cluster" class="mdl-layout__tab is-active">Content Clusters</a>
+            <a href="#intro" class="mdl-layout__tab is-active">Introduction</a>
+            <a href="#alts" class="mdl-layout__tab">Design Alternatives</a>
+            <a href="#cluster" class="mdl-layout__tab">Content Clusters</a>
             <a href="#stats" class="mdl-layout__tab">Video Stats by Cluster</a>
             <a href="#cloud" class="mdl-layout__tab">Top Title Words</a>
         </div>
     </header>
     <main class="mdl-layout__content">
-        <div class="mdl-layout__tab-panel is-active" id="cluster">
+
+        <div class="mdl-layout__tab-panel is-active" id="intro">
+
+            <div class="mdl-grid">
+
+                <div class="mdl-cell mdl-cell--12-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <h3>Introduction</h3>
+                                <div tabindex="-1"><p>As the most popular video hosting and sharing website, Youtube hosts a huge number of videos of diverse content types. For a long time, it is difficult to generate or collect data about the content type of a video and analyse the major content groups on Youtube and their characteristics. This year, Google launched a Youtube video understanding competition on Kaggle, challenging machine learning practiioners around the world to tackle the video content tagging problem. Provided in the competition is a large sample (~4 million) of Youtube videos together with their corresponding tags. While the task of generating tasks for videos is beyond the scope of this project, we are still able to take this labelled sample of Youtube videos and gain some insights into the various types of content that exist on Youtube. We are especially interested in the following questions:</p>
+                                    <ol>
+                                        <li>What are the <b>most popular types of videos</b> on Youtube?</li>
+                                        <li>Of the most common video content tags, which tags often appear on a same video? What are the <b>content clusters</b> and what are the <b>dominant tags</b> in each cluster?</li>
+                                        <li>Are there any <b>peculiarities</b> (length, views, likes, comments, likes vs dislikes, etc.) in videos of a particular popular tag or cluster?</li>
+                                        <li>Are there any <b>correlations between video title words and popularity</b>?</li>
+                                    </ol>
+                                    <p>Information about the video sampling can be found at <a href="https://research.google.com/youtube8m/" target="_blank">https://research.google.com/youtube8m/</a>. Here is the original description:</p>
+                                        <p>The videos are sampled uniformly to preserve the diverse distribution of popular content on YouTube, subject to a few constraints selected to ensure dataset quality and stability:</p>
+                                        <ul>
+                                            <li>Each video must be public and have at least 1000 views</li>
+                                            <li>Each video must be between 120 and 500 seconds long</li>
+                                            <li>Each video must be associated with at least one entity from our target vocabulary</li>
+                                            <li>Adult &amp; sensitive content is removed (as determined by automated classifiers)</li>
+                                        </ul>
+                                    <p>The label data is taken from <a href="https://www.kaggle.com/c/youtube8m/data" target="_blank">https://www.kaggle.com/c/youtube8m/data</a>. We only use the labelled section of the data, in train_labels.csv.</p>
+                                    <p>We retrieve additional metadata about videos (such as title, channel, duration, views, likes, dislikes and comments) using the Youtube Data API found at <a href="https://developers.google.com/youtube/v3/" target="_blank">https://developers.google.com/youtube/v3/</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mdl-layout__tab-panel" id="alts">
+
+            <div class="mdl-grid">
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <img src="images/top_tag_bar.png" width="100%">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <img src="images/top_tag_heat.png" width="100%">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <img src="images/hsbm-fit-latest.svg" width="100%">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mdl-cell mdl-cell--6-col">
+                    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                        <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                            <div class="mdl-card__supporting-text">
+                                <img src="images/word_cloud.png" width="100%">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mdl-layout__tab-panel" id="cluster">
 
             <div class="mdl-grid">
                 <section class="section--left mdl-shadow--2dp mdl-cell mdl-cell--3-col mdl-grid">
