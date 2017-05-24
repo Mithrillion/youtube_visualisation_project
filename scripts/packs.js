@@ -2,7 +2,7 @@
  * Created by mithrillion on 19/05/17.
  */
 
-PK_ROOT = "data/words/";
+PK_ROOT = "data/words/alt/";
 
 function draw_packed(json){
     var svg = d3.select("#words").append("svg").attr("width", 800).attr("height", 800).attr("id", "word_plot"),
